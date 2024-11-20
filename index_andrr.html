@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <title>Обратный отсчёт до Дня рождения Андрюши</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            font-family: "Comfortaa", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* height: 100vh; */
+            margin-top: 22.5%;
+            /* margin: 0; */
+            background-color: rgb(20, 20, 20);
+            color: #fff;
+            text-align: center;
+        }
+        #countdown {
+            font-size: 2em;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 3em;
+        }
+        .mainbox {
+            padding: 2%;
+            border-radius: 70px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mainbox">
+        <h1>До дня рождение Андрюши осталось:</h1>
+        <div id="countdown">Загрузка...</div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const nextYear = now.getFullYear() + 1;
+            const newYear = new Date(`January 6, ${nextYear} 00:00:00`);
+            const timeDiff = newYear - now;
+
+            if (timeDiff > 0) {
+                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+                const seconds = Math.floor((timeDiff / 1000) % 60);
+
+                document.getElementById('countdown').innerText = 
+                    `${days} дн. ${hours} ч. ${minutes} мин. ${seconds} сек.`;
+            } else {
+                document.getElementById('countdown').innerText = "С днём рождения, Андрюша!";
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
