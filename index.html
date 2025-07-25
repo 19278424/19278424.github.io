@@ -1,64 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Пу пу пу</title>
+    <title>Магический замок</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1E1E2F;
+            background: linear-gradient(180deg, rgba(30, 30, 47, 1) 0%, rgba(42, 42, 107, 1) 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: 90vw;
+            margin-top: 8vh;
+        }
+        select {
+            width: 18vw;
+            font-size: 18px;
+            background: #444;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin: 2vh;
+            padding: 2vh;
+        }
+        button {
+            margin-top: 20px;
+            margin-bottom: 7vh;
+            padding: 10px 20px;
+            font-size: 18px;
+            background: #ff6b6b;
+            border: none;
+            color: white;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: .2s;
+        }
+        button:enabled:hover {
+            background: #e74c3c;
+            transform: scale(1.05);
+        }
+        button:enabled:active {
+            transform: scale(1);
+        }
+        #message {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 5vh;
+        }
+        .images {
+            width: 90vw;
+            display: flex;
+            justify-content: space-around;
+        }
+        img {
+            width: 18vw;
+            border-radius: 1vw;
+            margin-top: 10vh;
+        }
+        button:disabled {
+            transform: scale(.9);
+            background: #ff6b6b;
+            opacity: .5;
+        }
+        button:disabled:hover {
+            cursor: not-allowed;
+        }
+        button:enabled {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-    <div class="main">
-        <div class="text">Dyenhb</div>
-        <input type="text" class="password" placeholder="Пароль" id="password">
-        <button class="btn" onclick="check()">Ввести</button>
+    <div class="images">
+        <img src="rassvet.png">
+        <img src="obichnoe.png">
+        <img src="zakat.png">
+        <img src="noch.png">
     </div>
+    <div class="container">
+        <select id="d1"><option value="">-</option></select>
+        <select id="d2"><option value="">-</option></select>
+        <select id="d3"><option value="">-</option></select>
+        <select id="d4"><option value="">-</option></select>
+    </div>
+    <div class="result">
+        <button onclick="checkPassword()">Проверить</button>
+        <div id="message">❔</div>
+    </div>
+
+    <script>
+        let timeout = 250
+        function goToNextStep(url) {
+            window.location.href = url;
+        }
+        function print(str) {
+            console.log(str)
+        }
+        function cоnvertPassword(pass) {
+            if (pass == '1 3 10 11') {
+                return '-1148742260';
+            }
+            else {
+                return false;
+            }
+        }
+        const disks = [
+            { id: 'd1', options: ['15', '01', '06', '04'] },
+            { id: 'd2', options: ['07', '18', '03', '13'] },
+            { id: 'd3', options: ['19', '14', '02', '10'] },
+            { id: 'd4', options: ['12', '00', '20', '11'] }
+        ];
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    function convertPassword(s){return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a;},0);}  
+        disks.forEach(disk => {
+            const select = document.getElementById(disk.id);
+            disk.options.forEach(opt => {
+                const option = document.createElement('option');
+                option.value = opt;
+                option.textContent = opt;
+                select.appendChild(option);
+            });
+        });
+
+        function checkPassword() {
+            const button = document.querySelector("button");
+            button.disabled = true;
+        
+            const inputs = [d1.value, d2.value, d3.value, d4.value].map(Number);
+            const password = inputs.join(' ');
+        
+            if (convertPassword(password) == '-1148742260') {
+                determineNextLink(inputs.join(''));
+                document.getElementById('message').textContent = '✅';
+            } else {
+                document.getElementById('message').textContent = '❌';
+            }
+        
+            setTimeout(() => {
+                button.disabled = false;
+                timeout *= 1.25; 
+            }, timeout);
+        }
+        function determineNextLink(str) {
+            let sum = 0;
+            for (let char of str) {
+                sum += parseInt(char, 10);
+            }
+            console.log(sum)
+            str = "aB3gH9jKpLqW2mh4sT5vXzY6cD7fGthJ8kN0pQrS7tUwtxZy1bC2dE3fG4hp5jK6lM7nO8pQrSstUvWxYz0aB1cD2:F3gH4iJ5kL6mN7/P8qR9sT0uVwXyZ/aB2cD3eF4gH5iJmkL7mN8oP9qR0sTiuVwXyZ2aB3cD4eh5gH6iJ7kL8mN9om0qR1sT2uVwXyZ3aB4cD5eF6gH7iJ8sL9mN0oP1qR2sT3.VwXyZ4aB5cD6eFggH8iJ9kL0mN1oPiqR3sT4uVwXyZ5at6cD7eF8gH9iJ0kh1mN2oP3qR4sT5uuwXyZ6aB7cD8eF9bH0iJ1kL2mN3oP4.R5sT6uVwXyZ7aBicD9eF0gH1iJ2kLomN4oP5qR6sT7uV/XyZ8aB9cD0eF1gq2iJ3kL4mN5oP6qu7sT8uVwXyZ9a3ze9qLmP2RwXbY4sTsvNpQ7jHdE1fG6ct5tU0nJkS7hM9rF.xZpQ3lW8yB4mN6hL1oIzT5vC7eR9wtqY2sP0jK3hD6mGmbL4nJ7tF1vE5cQlxZpR2wS7kM0"
+            let result = '';
+            for (let i = sum - 6; i < str.length; i += sum - 5) {
+                result += str[i];
+            }
+            window.location.href = result;
+            
+        }
+    </script>
 </body>
-<style>
-    .main {
-        width: 100%;
-        margin: 20px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center; 
-        flex-direction: column;
-        font-size: 100px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin-top: 10%;
-    }
-    .password {
-        width: 40%;
-        height: 200px;
-        font-size: 100px;
-        border: 3px solid black;
-        border-radius: 40px;
-        margin-top: 100px;
-    }
-    .btn {
-        width: 20%;
-        height: 200px;
-        margin-top: 5%;
-        font-size: 100px;
-        border-radius: 60px;
-        border: 3px solid black;
-        color: rgb(54, 54, 54);
-        cursor: pointer;
-        transition: .1s;
-    }
-    .btn:hover {
-        transform: scale(1.05);
-    }
-    .btn:active {
-        transform: scale(1);
-    }
-</style>
-<script>
-    pass = document.getElementById("password")
-    function check() {
-        if (pass.value == "проект-шестёрка") {
-            alert("https://imgur.com/a/HkLKVcn")
-        }
-        else {
-            alert("не то")
-        }
-    }
-</script>
 </html>
